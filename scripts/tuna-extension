@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+# Developer commands for this extension. Adapted from tunaformac/TunaExtensions (MIT).
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+ARCH="$(uname -m)"
+DERIVED_DATA="${TUNA_EXTENSION_DERIVED_DATA:-$ROOT/build/dd}"
+INSTALL_DIR="${TUNA_EXTENSIONS_DEV_DIR:-$HOME/Library/Application Support/Tuna/ExtensionsDev}"
+
+usage() {
+  cat <<'USAGE'
+Usage: ./scripts/tuna-extension <command> [options]
+
+Commands:
+  build       Build the extension (Debug unless --release)
+  test        Run the unit tests
+  install     Build and install into Tuna's ExtensionsDev folder
+  logs        Stream Tuna extension logs
+  package     Build Release and create a .tunaextension under dist/store
+
+Options:
+  --scheme SCHEME       Xcode scheme (default: AudioDevicesExtension)
+  --release             Use Release instead of Debug for build/install
+  --restart             Restart Tuna after install
+  --last DURATION       Show recent logs instead of streaming (for example 20m)
+
+Environment:
+  TUNA_DEVELOPMENT_TEAM / TUNA_CODE_SIGN_IDENTITY   override signing for non-interactive builds
+  MIN_TUNA / MIN_TUNAKIT / MIN_MACOS                override packaged compatibility floors
+  SIGNING_KEY                                       PEM ed25519 key to sign the package (optional)
+  TUNA_BINARY                                       Tuna executable used to dump the declaration
+USAGE
+}
+
+die() {
+  echo "error: $*" >&2
+  exit 64
+}
+
+command="${1:-help}"
+[[ $# -eq 0 ]] || shift
+scheme="${TUNA_EXTENSION_SCHEME:-AudioDevicesExtension}"
+configuration="Debug"
+restart="false"
+last=""
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --scheme) scheme="${2:?--scheme requires a value}"; shift 2 ;;
+    --release) configuration="Release"; shift ;;
+    --restart) restart="true"; shift ;;
+    --last) last="${2:?--last requires a duration}"; shift 2 ;;
+    -h|--help) usage; exit 0 ;;
+    *) die "unknown option: $1" ;;
+  esac
+done
+
+case "$command" in
+  help|-h|--help)
+    usage
+    ;;
+  logs)
+    predicate='subsystem == "com.brnbw.Tuna" AND (category == "Plugins" OR category == "ExtensionsHost")'
+    if [[ -n "$last" ]]; then
+      log show --style compact --last "$last" --predicate "$predicate"
+    else
+      log stream --style compact --predicate "$predicate"
+    fi
+    ;;
+  build)
+    destination="generic/platform=macOS"
+    [[ "$configuration" == "Release" ]] || destination="platform=macOS,arch=$ARCH"
+    "$ROOT/scripts/build-extension-product.sh" "$scheme" "$configuration" "$destination" "$DERIVED_DATA"
+    ;;
+  test)
+    read -r project resolved < <("$ROOT/scripts/resolve-extension-scheme.sh" "$scheme")
+    xcodebuild test \
+      -project "$project" \
+      -scheme "$resolved" \
+      -configuration Debug \
+      -destination "platform=macOS,arch=$ARCH" \
+      -derivedDataPath "$DERIVED_DATA/tests" \
+      CODE_SIGNING_ALLOWED=NO
+    ;;
+  install)
+    "$ROOT/scripts/install-extension-product.sh" \
+      "$scheme" "$INSTALL_DIR" "$configuration" "platform=macOS,arch=$ARCH" "$DERIVED_DATA"
+    if [[ "$restart" == "true" ]]; then
+      # Wait for the old process to exit before relaunching; opening too early just
+      # reactivates the running instance and the new code never loads.
+      old_pid="$(pgrep -x Tuna || true)"
+      osascript -e 'tell application "Tuna" to quit' >/dev/null 2>&1 || true
+      for _ in $(seq 1 15); do pgrep -x Tuna >/dev/null || break; sleep 1; done
+      if [[ -n "$old_pid" ]] && pgrep -x Tuna >/dev/null; then
+        kill -TERM "$old_pid" 2>/dev/null || true
+        for _ in $(seq 1 10); do pgrep -x Tuna >/dev/null || break; sleep 1; done
+      fi
+      open -a Tuna
+      echo "Restarted Tuna."
+    else
+      echo "Installed for development. Restart Tuna to load changed extension code."
+    fi
+    ;;
+  package)
+    "$ROOT/scripts/ext-package.sh" "$scheme" "generic/platform=macOS" "$DERIVED_DATA"
+    ;;
+  *)
+    die "unknown command: $command"
+    ;;
+esac

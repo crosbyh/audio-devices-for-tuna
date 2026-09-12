@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# Copy this extension into a TunaExtensions checkout (the repo that ships store extensions).
+#
+#   ./scripts/sync-to-tunaextensions [/path/to/TunaExtensions]   (default: ../TunaExtensions)
+#
+# Copies AudioDevicesExtension/ (sources, project, icon, changelog, README), refreshes the
+# screenshots under media/screenshots/audio-devices/, and swaps the signing team for the upstream
+# one. Review `git status` in the TunaExtensions checkout afterwards, then commit and open or
+# update the pull request.
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+DEST="${1:-$ROOT/../TunaExtensions}"
+UPSTREAM_TEAM="DDB8SQMXS9"
+
+[[ -d "$DEST/scripts" && -f "$DEST/Makefile" ]] || {
+  echo "error: $DEST does not look like a TunaExtensions checkout" >&2
+  exit 64
+}
+
+rsync -a --delete \
+  --exclude 'xcuserdata' --exclude '*.xcuserdatad' --exclude 'build' \
+  --exclude 'README.md' \
+  "$ROOT/AudioDevicesExtension/" "$DEST/AudioDevicesExtension/"
+cp "$ROOT/CHANGELOG.md" "$DEST/AudioDevicesExtension/CHANGELOG.md"
+
+mkdir -p "$DEST/media/screenshots/audio-devices"
+rsync -a --delete "$ROOT/media/screenshots/" "$DEST/media/screenshots/audio-devices/"
+
+sed -i '' "s/DEVELOPMENT_TEAM = [A-Z0-9]*;/DEVELOPMENT_TEAM = $UPSTREAM_TEAM;/g" \
+  "$DEST/AudioDevicesExtension/AudioDevicesExtension.xcodeproj/project.pbxproj"
+
+grep -q 'AudioDevicesExtension' "$DEST/Makefile" || echo "note: add AudioDevicesExtension to EXTENSION_SCHEMES in $DEST/Makefile" >&2
+grep -q 'AudioDevicesExtension.xcodeproj' "$DEST/TunaExtensions.xcworkspace/contents.xcworkspacedata" || echo "note: add the project to TunaExtensions.xcworkspace" >&2
+
+echo "Synced into $DEST (AudioDevicesExtension/README.md is maintained separately there)."
+git -C "$DEST" status --short
