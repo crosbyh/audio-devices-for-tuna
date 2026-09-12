@@ -25,15 +25,17 @@ public final class AudioDevicesExtension: Extension {
           name: "Audio Devices",
           presentation: .source,
           description:
-            "Every audio output and input macOS can use right now, as runnable items. Refreshes when devices connect or disconnect.",
-          enabledByDefault: true
+            "Every sound output and input macOS can use right now. Run one to make it the default; refreshes when devices connect or disconnect.",
+          enabledByDefault: true,
+          initialGlobalScope: .all
         ),
         CatalogDeclaration(
           id: Self.browseCatalogIdentifier,
           type: AudioDevicesBrowseCatalog.self,
           name: "Audio Devices",
           presentation: .browseRoot(contents: Self.devicesCatalogIdentifier),
-          description: "Browse outputs and inputs grouped by role, with the current device first.",
+          description:
+            "Every sound output and input macOS can use right now. Run one to make it the default; refreshes when devices connect or disconnect.",
           enabledByDefault: true
         ),
       ],

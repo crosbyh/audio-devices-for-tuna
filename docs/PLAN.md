@@ -1,7 +1,8 @@
 # Audio Devices for Tuna — implementation plan
 
-Status: **design approved 2026-09-11** (answers in § 7). Implementation proceeds through the
-task sequence in § 6.
+Status: **implemented 2026-09-11** (tasks 0–9 done, 29 unit tests green, dev-installed and
+verified in Tuna 0.98). Remaining: hardware matrix in Task 10 and the store PR in Task 11, plus
+the open items in § 8.
 
 Source design: `docs/source-plan-2026-09-11.md` (from OpenCloud `outbox/`). This document
 records what discovery confirmed or changed, the concrete decisions for *this* repo, and the
@@ -23,11 +24,11 @@ task sequence. Where the two disagree, this file wins.
 
 TunaKit changelog facts that matter here: `Runnable.run()` and action callbacks are async
 since 1.17.0; `CatalogDeclaration` requires `presentation:` since 1.21.0; `initialGlobalScope`
-exists since 1.22.0 but its purpose is to keep a source *out* of global search, and no
-first-party extension uses it. A plain `.source` catalog is already globally searchable, so
-this design needs no 1.22-only symbol. Floors are therefore a policy choice (Q2), not a
-technical one: first-party projects declare `minTuna "0.95" / minTunaKit "1.21.0"` while
-pinning 1.22.0; Vikunja declares `0.96 / 1.22.0`.
+exists since 1.22.0. **Verified in Tuna 0.98:** a `.source` catalog declared with the plain
+overload is persisted with scope `none` (Tuna prefs `CatalogScopes`), i.e. its items are
+browse-only until the user enables the source in Settings → Sources. This design needs the
+items in global search, so the source catalog passes `initialGlobalScope: .all`, which makes
+TunaKit 1.22.0 / Tuna 0.96 a hard floor, not just a policy choice.
 
 ## 2. Core Audio discovery — what the spike proved
 
@@ -116,7 +117,7 @@ These follow the conventions already established by `vikunja-for-tuna` unless a 
 | Author | Crosby Hayton |
 | Floors | minTuna `0.96`, minTunaKit `1.22.0`, `MACOSX_DEPLOYMENT_TARGET 15.0` |
 | Type IDs | `com.crosbyh.tuna.type.audio-output-device`, `com.crosbyh.tuna.type.audio-input-device`, both inherit `.entity` |
-| Catalog IDs | `audio-devices` (`.source`, default global scope, no `initialGlobalScope:` argument like every first-party catalog), `audio-devices.browse` (`.browseRoot(contents: "audio-devices")`), `audio-devices.actions` |
+| Catalog IDs | `audio-devices` (`.source`, `initialGlobalScope: .all`; the plain overload persists as browse-only), `audio-devices.browse` (`.browseRoot(contents: "audio-devices")`), `audio-devices.actions` |
 | Action IDs | `use-for-output`, `use-for-input`, `use-for-sound-effects`, `hide-device`, `show-device` |
 | Settings | `RouteSoundEffectsWithOutput` (`.bool`, default `true`); `HiddenDevices` (`.string`, default empty; newline-separated item IDs maintained by the hide/show actions, hand-editable) |
 | Item IDs | `output:<encoded-uid>` / `input:<encoded-uid>`, reversible encoding (see § 4.3) |
@@ -284,14 +285,14 @@ cover.
 | --- | --- | --- | --- |
 | 0 | ✅ `git init`, LICENSE, `.gitignore`, copy/rename scripts + Makefile from vikunja-for-tuna, GitHub repo | tooling in place | `chore: bootstrap repo from vikunja-for-tuna tooling` |
 | 1 | ✅ Write spike: switch output/input/sound-effects natively, read back, confirm delegate events fire (done; AirPods UID stability across disconnect/reconnect and the `SwitchAudioSource` comparison are folded into Task 10 manual validation) | `spike/` notes in § 2 | `docs: record native switching spike results` |
-| 2 | Clone + rename Xcode project, `Info.plist`, principal class, declaration; declaration tests (IDs, presentations, scope, settings, types, rankings, floors) | loads in Tuna, `make test` green | `feat: scaffold Audio Devices extension declaration` |
-| 3 | Models, provider protocol, `FakeAudioDeviceProvider`; tests for eligibility, duplex split, current-state derivation, sort | | `test: define provider contract and fake backend` |
-| 4 | `CoreAudioBackend` enumeration + defaults read; transport mapping + filtering tests on pure helpers | | `feat: enumerate Core Audio devices` |
-| 5 | `AudioSwitchingService` + backend setters with bounded readback (output, input, sound-effects-only); tests for vanished device, role rejection, timeout, sound-effects partial failure, no-op on current | | `feat: switch and verify default devices` |
-| 6 | Items + ID codec; tests for round-trip IDs, duplicate names, role separation, search keys, details (incl. `· Alerts`), symbols, Bluetooth copy; decide headless eligibility | | `feat: add runnable device items` |
-| 7 | Catalog + rescan scheduling + debounce + hidden-device filtering and "Hidden Audio Devices" browse entry; tests with fake observer (250 ms, cancellation, single listener install, teardown) and hidden-list parsing | live refresh in Tuna | `feat: refresh on hardware changes` |
-| 8 | Actions catalog + rankings (switch, alerts, hide/show); tests for subject types/predicates, no target, policies, failure copy, setting writes | | `feat: add device actions` |
-| 9 | README (setup, privacy, Bluetooth limits, Teams-Audio exclusion, sound-effects setting), CHANGELOG 0.1, icon, screenshots | | `docs: document privacy and Bluetooth behavior` |
+| 2 | ✅ Clone + rename Xcode project, `Info.plist`, principal class, declaration; declaration tests (IDs, presentations, scope, settings, types, rankings, floors) | loads in Tuna, `make test` green | `feat: scaffold Audio Devices extension declaration` |
+| 3 | ✅ Models, provider protocol, `FakeAudioDeviceProvider`; tests for eligibility, duplex split, current-state derivation, sort | | `test: define provider contract and fake backend` |
+| 4 | ✅ `CoreAudioBackend` enumeration + defaults read; transport mapping + filtering tests on pure helpers | | `feat: enumerate Core Audio devices` |
+| 5 | ✅ `AudioSwitchingService` + backend setters with bounded readback (output, input, sound-effects-only); tests for vanished device, role rejection, timeout, sound-effects partial failure, no-op on current | | `feat: switch and verify default devices` |
+| 6 | ✅ Items + ID codec; tests for round-trip IDs, duplicate names, role separation, search keys, details (incl. `· Alerts`), symbols, Bluetooth copy; decide headless eligibility | | `feat: add runnable device items` |
+| 7 | ✅ Catalog + rescan scheduling + debounce + hidden-device filtering and "Hidden Audio Devices" browse entry; tests with fake observer (250 ms, cancellation, single listener install, teardown) and hidden-list parsing | live refresh in Tuna | `feat: refresh on hardware changes` |
+| 8 | ✅ Actions catalog + rankings (switch, alerts, hide/show); tests for subject types/predicates, no target, policies, failure copy, setting writes | | `feat: add device actions` |
+| 9 | ✅ README (setup, privacy, Bluetooth limits, Teams-Audio exclusion, sound-effects setting), CHANGELOG 0.1, icon, screenshots | | `docs: document privacy and Bluetooth behavior` |
 | 10 | Manual matrix (§ 7 of source plan) on this Mac: built-in, AirPods in/out, iPhone mic, Loopback, connect/disconnect, external changes, sleep/wake, hotkey survival; clean-account TCC check | evidence in README | `chore: record manual validation` |
 | 11 | `sync-to-tunaextensions`, Release build + `make test` in the fork, open PR | store PR | — |
 
@@ -313,3 +314,26 @@ Estimated effort: tasks 0–2 half a day; 3–8 two to three days including hard
 5. **Distribution.** Standalone repo synced into the TunaExtensions fork, as Vikunja.
 6. **Host.** GitHub, `crosbyh/audio-devices-for-tuna`, public like `vikunja-for-tuna`.
 7. **Spike writes.** Approved to run unattended; the spike restores the original defaults.
+
+## 8. Findings from the first dev install (2026-09-11)
+
+1. **Tuna 0.98 already ships built-in catalogs `tuna.audio-output-devices` and
+   `tuna.audio-input-devices`** (module `TunaMedia`, described in the binary as "Switch audio
+   inputs and outputs"; the built-in tools docs do not mention them). Each reports one item in
+   Tuna's telemetry, so they look like browse entries rather than directly runnable device
+   items. Worth comparing side by side before submitting to the store: this extension's
+   value over the built-in is direct global-search items with stable per-device hotkey IDs,
+   alert-sound routing, and per-device hiding.
+2. **Global search scope is not applied from the declaration.** With `initialGlobalScope: .all`
+   declared and every persisted trace removed (`CatalogScopes`, `CatalogInitialEnablementStates`,
+   `SearchCatalogGlobalDefaultsSeededCatalogs` in `com.brnbw.Tuna`), Tuna still seeds the source
+   as `{"kind":"none"}` on launch. A `[[catalogs.globalScopes]]` entry with `kind = "all"` in
+   config.toml did not change it either. Enabling it in Settings → Sources → Audio Devices →
+   In global search → All is the working path; the README says so. Possibly dev-install
+   specific, possibly a Tuna bug; ask the Tuna developer.
+3. The Settings pane renders both settings and the 5-item source correctly, and Tuna's
+   telemetry shows both catalogs scanning in ~10–100 ms.
+4. Tuna's Sources card shows the *browse companion's* description for the paired source, so
+   both catalogs now carry the same description.
+5. `Tuna --dump-extension-declaration <framework>` works (used by packaging) but only lists
+   catalog IDs, not their scopes.

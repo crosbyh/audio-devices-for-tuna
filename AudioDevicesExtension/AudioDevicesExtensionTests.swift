@@ -157,6 +157,8 @@ final class AudioDevicesDeclarationTests: XCTestCase {
     XCTAssertEqual(declaration.catalogs[0].presentation, .source)
     XCTAssertEqual(declaration.catalogs[1].presentation, .browseRoot(contents: "audio-devices"))
     XCTAssertTrue(declaration.catalogs.allSatisfy(\.enabledByDefault))
+    XCTAssertEqual(declaration.catalogs[0].initialGlobalScope, .all, "items must be in global search")
+    XCTAssertEqual(declaration.catalogs[1].initialGlobalScope, .none)
     XCTAssertEqual(declaration.actionCatalogs.map(\.id), ["audio-devices.actions"])
     XCTAssertEqual(declaration.compatibility?.minTuna, "0.96")
     XCTAssertEqual(declaration.compatibility?.minTunaKit, "1.22.0")
