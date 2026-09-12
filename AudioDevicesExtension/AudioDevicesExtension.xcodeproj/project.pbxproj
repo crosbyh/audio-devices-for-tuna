@@ -1,0 +1,385 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B1000001000000000000A001 /* AudioDevicesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000001000000000000F001 /* AudioDevicesExtension.swift */; };
+		B1000001000000000000A002 /* CoreAudioBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000001000000000000F002 /* CoreAudioBackend.swift */; };
+		B1000001000000000000A003 /* AudioDeviceModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000001000000000000F003 /* AudioDeviceModels.swift */; };
+		B1000001000000000000A004 /* AudioDeviceItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000001000000000000F004 /* AudioDeviceItems.swift */; };
+		B1000001000000000000A005 /* AudioDevicesCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000001000000000000F005 /* AudioDevicesCatalog.swift */; };
+		B1000001000000000000A006 /* AudioSwitchingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000001000000000000F006 /* AudioSwitchingService.swift */; };
+		B1000001000000000000A007 /* AudioDeviceActionsCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000001000000000000F007 /* AudioDeviceActionsCatalog.swift */; };
+		B1000001000000000000A008 /* AudioDevicesExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000001000000000000F008 /* AudioDevicesExtensionTests.swift */; };
+		B1000001000000000000A009 /* TunaAudioDevices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1000001000000000000F009 /* TunaAudioDevices.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B1000001000000000000C001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B1000001000000000000E001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B1000001000000000000D001;
+			remoteInfo = AudioDevicesExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B1000001000000000000F001 /* AudioDevicesExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDevicesExtension.swift; sourceTree = "<group>"; };
+		B1000001000000000000F002 /* CoreAudioBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAudioBackend.swift; sourceTree = "<group>"; };
+		B1000001000000000000F003 /* AudioDeviceModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDeviceModels.swift; sourceTree = "<group>"; };
+		B1000001000000000000F004 /* AudioDeviceItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDeviceItems.swift; sourceTree = "<group>"; };
+		B1000001000000000000F005 /* AudioDevicesCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDevicesCatalog.swift; sourceTree = "<group>"; };
+		B1000001000000000000F006 /* AudioSwitchingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSwitchingService.swift; sourceTree = "<group>"; };
+		B1000001000000000000F007 /* AudioDeviceActionsCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDeviceActionsCatalog.swift; sourceTree = "<group>"; };
+		B1000001000000000000F008 /* AudioDevicesExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDevicesExtensionTests.swift; sourceTree = "<group>"; };
+		B1000001000000000000F009 /* TunaAudioDevices.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TunaAudioDevices.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1000001000000000000F00A /* AudioDevicesExtensionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AudioDevicesExtensionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1000001000000000000F00B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B1000001000000000000B001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1000001000000000000B002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1000001000000000000A009 /* TunaAudioDevices.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B10000010000000000003001 = {
+			isa = PBXGroup;
+			children = (
+				B10000010000000000003002 /* . */,
+				B10000010000000000003003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B10000010000000000003002 /* . */ = {
+			isa = PBXGroup;
+			children = (
+				B1000001000000000000F001 /* AudioDevicesExtension.swift */,
+				B1000001000000000000F002 /* CoreAudioBackend.swift */,
+				B1000001000000000000F003 /* AudioDeviceModels.swift */,
+				B1000001000000000000F004 /* AudioDeviceItems.swift */,
+				B1000001000000000000F005 /* AudioDevicesCatalog.swift */,
+				B1000001000000000000F006 /* AudioSwitchingService.swift */,
+				B1000001000000000000F007 /* AudioDeviceActionsCatalog.swift */,
+				B1000001000000000000F00B /* Info.plist */,
+				B1000001000000000000F008 /* AudioDevicesExtensionTests.swift */,
+			);
+			path = .;
+			sourceTree = "<group>";
+		};
+		B10000010000000000003003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B1000001000000000000F009 /* TunaAudioDevices.framework */,
+				B1000001000000000000F00A /* AudioDevicesExtensionTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B1000001000000000000D001 /* AudioDevicesExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B10000010000000000004002 /* Build configuration list for PBXNativeTarget "AudioDevicesExtension" */;
+			buildPhases = (
+				B10000010000000000005001 /* Sources */,
+				B1000001000000000000B001 /* Frameworks */,
+				B10000010000000000006001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AudioDevicesExtension;
+			packageProductDependencies = (
+				B10000010000000000009002 /* TunaKit */,
+			);
+			productName = TunaAudioDevices;
+			productReference = B1000001000000000000F009 /* TunaAudioDevices.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		B1000001000000000000D002 /* AudioDevicesExtensionTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B10000010000000000004003 /* Build configuration list for PBXNativeTarget "AudioDevicesExtensionTests" */;
+			buildPhases = (
+				B10000010000000000005002 /* Sources */,
+				B1000001000000000000B002 /* Frameworks */,
+				B10000010000000000006002 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B10000010000000000007001 /* PBXTargetDependency */,
+			);
+			name = AudioDevicesExtensionTests;
+			packageProductDependencies = (
+				B10000010000000000009003 /* TunaKit */,
+			);
+			productName = AudioDevicesExtensionTests;
+			productReference = B1000001000000000000F00A /* AudioDevicesExtensionTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B1000001000000000000E001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					B1000001000000000000D001 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = B10000010000000000004001 /* Build configuration list for PBXProject "AudioDevicesExtension" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = B10000010000000000003001;
+			packageReferences = (
+				B10000010000000000009001 /* XCRemoteSwiftPackageReference "TunaKit" */,
+			);
+			productRefGroup = B10000010000000000003003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B1000001000000000000D001 /* AudioDevicesExtension */,
+				B1000001000000000000D002 /* AudioDevicesExtensionTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B10000010000000000006001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B10000010000000000006002 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B10000010000000000005001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1000001000000000000A001 /* AudioDevicesExtension.swift in Sources */,
+				B1000001000000000000A002 /* CoreAudioBackend.swift in Sources */,
+				B1000001000000000000A003 /* AudioDeviceModels.swift in Sources */,
+				B1000001000000000000A004 /* AudioDeviceItems.swift in Sources */,
+				B1000001000000000000A005 /* AudioDevicesCatalog.swift in Sources */,
+				B1000001000000000000A006 /* AudioSwitchingService.swift in Sources */,
+				B1000001000000000000A007 /* AudioDeviceActionsCatalog.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B10000010000000000005002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1000001000000000000A008 /* AudioDevicesExtensionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B10000010000000000007001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AudioDevicesExtension;
+			target = B1000001000000000000D001 /* AudioDevicesExtension */;
+			targetProxy = B1000001000000000000C001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		B10000010000000000008001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = TunaAudioDevices;
+			};
+			name = Debug;
+		};
+		B10000010000000000008002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = TunaAudioDevices;
+			};
+			name = Release;
+		};
+		B10000010000000000008003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = N4ZMG97CA9;
+				ENABLE_TESTABILITY = YES;
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.crosbyh.tuna.audio-devices;
+				PRODUCT_MODULE_NAME = TunaAudioDevices;
+				PRODUCT_NAME = TunaAudioDevices;
+				SKIP_INSTALL = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 6;
+			};
+			name = Debug;
+		};
+		B10000010000000000008004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = N4ZMG97CA9;
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.crosbyh.tuna.audio-devices;
+				PRODUCT_MODULE_NAME = TunaAudioDevices;
+				PRODUCT_NAME = TunaAudioDevices;
+				SKIP_INSTALL = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 6;
+			};
+			name = Release;
+		};
+		B10000010000000000008005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = N4ZMG97CA9;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.crosbyh.AudioDevicesExtensionTests;
+				PRODUCT_MODULE_NAME = AudioDevicesExtensionTests;
+				PRODUCT_NAME = AudioDevicesExtensionTests;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B10000010000000000008006 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = N4ZMG97CA9;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.crosbyh.AudioDevicesExtensionTests;
+				PRODUCT_MODULE_NAME = AudioDevicesExtensionTests;
+				PRODUCT_NAME = AudioDevicesExtensionTests;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B10000010000000000004001 /* Build configuration list for PBXProject "AudioDevicesExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B10000010000000000008001 /* Debug */,
+				B10000010000000000008002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B10000010000000000004002 /* Build configuration list for PBXNativeTarget "AudioDevicesExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B10000010000000000008003 /* Debug */,
+				B10000010000000000008004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B10000010000000000004003 /* Build configuration list for PBXNativeTarget "AudioDevicesExtensionTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B10000010000000000008005 /* Debug */,
+				B10000010000000000008006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B10000010000000000009001 /* XCRemoteSwiftPackageReference "TunaKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tunaformac/TunaKit";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 1.22.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B10000010000000000009002 /* TunaKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B10000010000000000009001 /* XCRemoteSwiftPackageReference "TunaKit" */;
+			productName = TunaKit;
+		};
+		B10000010000000000009003 /* TunaKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B10000010000000000009001 /* XCRemoteSwiftPackageReference "TunaKit" */;
+			productName = TunaKit;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = B1000001000000000000E001 /* Project object */;
+}
